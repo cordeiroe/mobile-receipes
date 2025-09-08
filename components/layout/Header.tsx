@@ -20,7 +20,7 @@ export const Header: React.FC<HeaderProps> = React.memo(({ onAddPress }) => {
   return (
     <ThemedView style={styles.header}>
       <ThemedText type="title" accessibilityRole="header">
-        Recipes
+Receitas
       </ThemedText>
       <TouchableOpacity 
         style={styles.button}

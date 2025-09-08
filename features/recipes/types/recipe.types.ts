@@ -9,7 +9,7 @@ export interface Recipe {
   ingredients?: string[];
   instructions?: string[];
   servings?: number;
-  difficulty?: 'easy' | 'medium' | 'hard';
+  difficulty?: 'fácil' | 'médio' | 'difícil';
   createdAt?: Date;
   updatedAt?: Date;
 }

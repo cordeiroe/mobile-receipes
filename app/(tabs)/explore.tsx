@@ -1,8 +1,6 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -21,76 +19,60 @@ export default function TabTwoScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+        <ThemedText type="title">Explorar Receitas</ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
+      <ThemedText>Descubra funcionalidades incríveis do nosso app de receitas.</ThemedText>
+      <Collapsible title="Categorias de Receitas">
         <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+          Organize suas receitas por categorias como{' '}
+          <ThemedText type="defaultSemiBold">Doces</ThemedText>,{' '}
+          <ThemedText type="defaultSemiBold">Salgados</ThemedText> e{' '}
+          <ThemedText type="defaultSemiBold">Pratos Principais</ThemedText>.
         </ThemedText>
         <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
+          Use filtros para encontrar rapidamente suas receitas favoritas por categoria, 
+          dificuldade ou tempo de preparo.
         </ThemedText>
       </Collapsible>
-      <Collapsible title="Images">
+      <Collapsible title="Busca Inteligente">
         <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
+          Encontre receitas digitando ingredientes, nomes ou categorias. Nossa busca 
+          procura em todos os campos da receita para você encontrar exatamente o que deseja.
         </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
       </Collapsible>
-      <Collapsible title="Custom fonts">
+      <Collapsible title="Design Responsivo">
         <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
+          O app se adapta automaticamente a diferentes tamanhos de tela, desde{' '}
+          <ThemedText type="defaultSemiBold">smartphones</ThemedText> até{' '}
+          <ThemedText type="defaultSemiBold">tablets</ThemedText>, proporcionando 
+          uma experiência otimizada em qualquer dispositivo.
+        </ThemedText>
+      </Collapsible>
+      <Collapsible title="Acessibilidade">
+        <ThemedText>
+          Todos os componentes incluem suporte completo para{' '}
           <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
+            leitores de tela e navegação por teclado
+          </ThemedText>, tornando o app acessível para todos os usuários.
         </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
       </Collapsible>
-      <Collapsible title="Light and dark mode components">
+      <Collapsible title="Performance Otimizada">
         <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
+          Utilizamos as melhores práticas de React Native, incluindo{' '}
+          <ThemedText type="defaultSemiBold">memoização</ThemedText>,{' '}
+          <ThemedText type="defaultSemiBold">lazy loading</ThemedText> e{' '}
+          <ThemedText type="defaultSemiBold">FlatList otimizada</ThemedText>{' '}
+          para garantir fluidez mesmo com muitas receitas.
         </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
       </Collapsible>
-      <Collapsible title="Animations">
+      <Collapsible title="Tecnologias Utilizadas">
         <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
+          Desenvolvido com as mais modernas tecnologias:{' '}
+          <ThemedText type="defaultSemiBold">React Native</ThemedText>,{' '}
+          <ThemedText type="defaultSemiBold">Expo</ThemedText>,{' '}
+          <ThemedText type="defaultSemiBold">TypeScript</ThemedText> e{' '}
+          <ThemedText type="defaultSemiBold">Expo Router</ThemedText>.
         </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
       </Collapsible>
     </ParallaxScrollView>
   );
