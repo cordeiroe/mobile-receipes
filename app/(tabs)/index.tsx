@@ -1,52 +1,84 @@
 import { Header } from "@/components/layout/Header";
 import { SearchInput } from "@/components/layout/SearchInput";
-import {
-    RecipeCard,
-    RecipeCardProps,
-} from "@/components/RecipeCard";
 import { ThemedView } from "@/components/ThemedView";
-import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { Recipe, RecipeCard, useRecipes } from "@/features/recipes";
+import { useResponsiveLayout } from "@/hooks/useResponsiveLayout";
+import React from "react";
+import { FlatList, ListRenderItem, SafeAreaView, StyleSheet } from "react-native";
 
-const recipes: RecipeCardProps[] = [
-  {
-    image: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-cA_2tY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-ddmfs-4x3-1350-1-6a03c182a52446268d5669813c544369.jpg",
-    title: "Chocolate Cake",
-    category: "Cake",
-    rating: 5,
-    time: "1 hr",
-  },
-  {
-    image: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-cA_2tY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-ddmfs-4x3-1350-1-6a03c182a52446268d5669813c544369.jpg",
-    title: "Margherita Pizza",
-    category: "Savory",
-    rating: 4,
-    time: "20 min",
-  },
-  {
-    image: "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-cA_2tY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-ddmfs-4x3-1350-1-6a03c182a52446268d5669813c544369.jpg",
-    title: "Chicken Curry",
-    category: "Chicken",
-    rating: 5,
-    time: "45 min",
-  },
-];
+interface HomeScreenProps {}
 
-export default function HomeScreen() {
+const HomeScreen: React.FC<HomeScreenProps> = () => {
+  const { 
+    filteredRecipes, 
+    isLoading, 
+    error, 
+    searchRecipes 
+  } = useRecipes();
+  
+  const { isTablet, isLandscape } = useResponsiveLayout();
+
+  const handleAddRecipe = React.useCallback(() => {
+    // TODO: Implementar navegação para tela de adicionar receita
+    console.log("Adicionar nova receita");
+  }, []);
+
+  const handleRecipePress = React.useCallback((recipe: Recipe) => {
+    // TODO: Implementar navegação para detalhes da receita
+    console.log("Receita selecionada:", recipe.title);
+  }, []);
+
+  const renderRecipeItem: ListRenderItem<Recipe> = React.useCallback(({ item }) => (
+    <RecipeCard 
+      recipe={item}
+      onPress={handleRecipePress}
+    />
+  ), [handleRecipePress]);
+
+  const keyExtractor = React.useCallback((item: Recipe) => item.id, []);
+
+  const getItemLayout = React.useCallback((data: ArrayLike<Recipe> | null | undefined, index: number) => {
+    const baseHeight = isTablet ? 164 : 116; // altura estimada do item + marginBottom
+    return {
+      length: baseHeight,
+      offset: baseHeight * index,
+      index,
+    };
+  }, [isTablet]);
+
+  const containerStyles = React.useMemo(() => [
+    styles.listContainer,
+    isTablet && styles.listContainerTablet,
+    isLandscape && isTablet && styles.listContainerLandscape,
+  ], [isTablet, isLandscape]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ThemedView style={styles.container}>
-        <Header />
-        <SearchInput />
+        <Header onAddPress={handleAddRecipe} />
+        <SearchInput 
+          onChangeText={searchRecipes}
+          placeholder="Pesquisar receitas..."
+        />
         <FlatList
-          data={recipes}
-          renderItem={({ item }) => <RecipeCard {...item} />}
-          keyExtractor={(item) => item.title}
-          contentContainerStyle={styles.listContainer}
+          data={filteredRecipes}
+          renderItem={renderRecipeItem}
+          keyExtractor={keyExtractor}
+          contentContainerStyle={containerStyles}
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={isTablet ? 8 : 10}
+          windowSize={isTablet ? 8 : 10}
+          getItemLayout={getItemLayout}
+          initialNumToRender={isTablet ? 4 : 5}
+          updateCellsBatchingPeriod={50}
+          showsVerticalScrollIndicator={false}
         />
       </ThemedView>
     </SafeAreaView>
   );
-}
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -57,5 +89,13 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 16,
+    paddingBottom: 20,
+  },
+  listContainerTablet: {
+    paddingHorizontal: 32,
+    paddingBottom: 40,
+  },
+  listContainerLandscape: {
+    paddingHorizontal: 64,
   },
 });
